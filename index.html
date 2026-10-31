@@ -1,119 +1,135 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Try Not To Laugh Challenge 😂</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&display=swap" rel="stylesheet">
+<title>Try Not To Laugh - SPARK</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;800&family=Bangers&display=swap" rel="stylesheet">
 <style>
-:root{--y:#FFE45E;--p:#FF6B9D;--b:#4ECDC4;--bg:#FFF8E7}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Fredoka',sans-serif;background:var(--bg);min-height:100vh;display:flex;flex-direction:column}
-nav{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;max-width:520px;width:100%;margin:0 auto}
-.logo{font-weight:800;font-size:24px;transform:rotate(-1.5deg);line-height:1}
-.logo span{color:var(--p);display:block;font-size:18px}
-.lives{background:#fff;border:3px solid #000;border-radius:30px;padding:6px 14px;box-shadow:3px 3px 0 #000;font-weight:700}
-.container{max-width:480px;width:100%;margin:0 auto;padding:0 20px;flex:1}
-.progress-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.progress{flex:1;height:16px;background:#fff;border:2.5px solid #000;border-radius:20px;overflow:hidden;box-shadow:2px 2px 0 #000}
-.bar{height:100%;background:linear-gradient(90deg,var(--y),var(--p));width:0%;transition:width 0.6s cubic-bezier(.34,1.56,.64,1)}
-.card{background:#fff;border:4px solid #000;border-radius:28px;padding:12px;box-shadow:8px 8px 0 #000}
-.img-box{border:3px solid #000;border-radius:18px;aspect-ratio:1/1;overflow:hidden;background:#fff;position:relative;display:flex;align-items:center;justify-content:center}
-.img-box img{width:100%;height:100%;object-fit:cover}
-.timer-overlay{position:absolute;inset:0;background:#111111e6;display:flex;align-items:center;justify-content:center;z-index:5;flex-direction:column}
-.timer-num{font-size:110px;font-weight:800;color:#FFE45E;-webkit-text-stroke:4px #000;text-shadow:6px 6px 0 #000;animation:pop 0.6s cubic-bezier(.34,1.56,.64,1) forwards}
-@keyframes pop{0%{transform:scale(0.2) rotate(-15deg)}50%{transform:scale(1.25) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
-.badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--y);border:2.5px solid #000;border-radius:10px;padding:4px 10px;font-weight:800;font-size:13px}
-.controls{display:flex;gap:10px;margin-top:12px}
-.btn{flex:1;padding:13px;border:3px solid #000;border-radius:14px;font-weight:800;box-shadow:3px 3px 0 #000;cursor:pointer}
-.btn-laugh{background:#FF6B9D;color:#fff} .btn-next{background:#4ECDC4}
-.credits{text-align:center;padding:20px;font-size:13px;opacity:0.8}
-.credits strong{border:2px solid #000;background:#fff;padding:2px 8px;border-radius:20px;box-shadow:2px 2px 0 #000}
-#overlay{position:fixed;inset:0;background:#000000b3;display:none;align-items:center;justify-content:center;z-index:99;padding:20px}
-.over-box{background:#fff;border:4px solid #000;border-radius:24px;padding:26px;text-align:center;box-shadow:10px 10px 0 #000;max-width:340px;width:100%}
+body{font-family:'Fredoka',sans-serif;background:#0F0F0F;color:#fff;min-height:100vh}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 20% 20%, #FFE60055, transparent 40%),radial-gradient(circle at 80% 80%, #FF3B8255, transparent 40%), #0F0F0F}
+#start{position:fixed;inset:0;z-index:99;background:#0F0F0F;display:flex;align-items:center;justify-content:center;padding:20px}
+.startBox{background:#fff;color:#000;border:5px solid #000;border-radius:30px;padding:24px;box-shadow:12px 12px 0 #FFE600;max-width:380px;width:100%;text-align:center}
+.startBox h1{font-family:'Bangers';font-size:50px;line-height:.9} .startBox h1 span{color:#FF3B82}
+.btnStart{width:100%;padding:16px;margin-top:14px;background:#00FF88;border:4px solid #000;border-radius:16px;font-family:'Bangers';font-size:26px;box-shadow:6px 6px 0 #000;cursor:pointer}
+header{padding:14px 20px;display:flex;justify-content:space-between;max-width:480px;margin:auto;width:100%}
+.logo{font-family:'Bangers';font-size:28px} .logo span{color:#FF3B82}
+.lives{background:#fff;color:#000;border:3px solid #000;border-radius:30px;padding:5px 12px;box-shadow:3px 3px 0 #000;font-weight:800}
+.wrap{max-width:460px;margin:auto;padding:0 18px 20px;width:100%}
+.progress{height:16px;background:#fff;border:3px solid #000;border-radius:20px;overflow:hidden;box-shadow:2px 2px 0 #000;margin-bottom:12px}
+.bar{height:100%;background:linear-gradient(90deg,#FFE600,#FF3B82);width:0%;transition:.5s}
+.card{background:#fff;border:4px solid #000;border-radius:26px;padding:10px;box-shadow:8px 8px 0 #FFE600}
+.imgBox{border:3px solid #000;border-radius:18px;aspect-ratio:1/1;overflow:hidden;background:#111;position:relative;display:flex;align-items:center;justify-content:center}
+.imgBox img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:8px;left:8px;background:#FFE600;color:#000;border:2px solid #000;border-radius:8px;padding:3px 8px;font-weight:800;font-size:12px;z-index:2}
+.timer{position:absolute;inset:0;background:#000000e8;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5}
+.timerNum{font-family:'Bangers';font-size:100px;color:#FFE600;-webkit-text-stroke:3px #000;text-shadow:6px 6px 0 #000;animation:pop .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.4)}100%{transform:scale(1)}}
+.controls{display:flex;gap:8px;margin-top:10px}
+.btn{flex:1;padding:12px;border:3px solid #000;border-radius:12px;font-weight:800;box-shadow:3px 3px 0 #000;cursor:pointer}
+.btnLaugh{background:#FF3B82;color:#fff} .btnNext{background:#00E5FF}
+.credits{text-align:center;padding:16px;font-size:12px;color:#aaa}
+.credits b{background:#fff;color:#000;border:2px solid #000;padding:2px 8px;border-radius:20px;color:#000}
+#end{position:fixed;inset:0;background:#000000aa;backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.endBox{background:#fff;color:#000;border:5px solid #000;border-radius:24px;padding:22px;text-align:center;box-shadow:10px 10px 0 #FF3B82;max-width:360px;width:100%}
 </style>
 </head>
 <body>
-<nav><div class="logo">TRY NOT TO <span>LAUGH! 😂 CHALLENGE</span></div><div class="lives" id="lives">❤️❤️❤️ 3</div></nav>
-<div class="container">
-<div class="progress-wrap"><div class="progress"><div class="bar" id="bar"></div></div><div id="ptxt">1/15</div></div>
+<div class="bg"></div>
+<div id="start"><div class="startBox"><h1>TRY NOT TO <span>LAUGH! 😂</span></h1><p style="margin:10px 0;background:#FFE600;border:2px solid #000;border-radius:10px;padding:6px;font-weight:800">15 MEMES • 3 LIVES • 3-2-1 TIMER</p><p style="font-size:13px;text-align:left;background:#f5f5f5;border:2px solid #000;border-radius:12px;padding:10px">• Don't laugh or you lose life<br>• Pics play 1.jpg → 15.jpg in order<br>• 3-2-1 timer for each pic</p><button class="btnStart" onclick="startGame()">START CHALLENGE 🚀</button><div style="margin-top:10px;font-size:12px">Developed by <b>SPARK</b> ✨</div><div id="status" style="font-size:10px;margin-top:8px;opacity:.6"></div></div></div>
+<header><div class="logo">TRY NOT TO <span>LAUGH!</span></div><div class="lives" id="lives">❤️❤️❤️</div></header>
+<div class="wrap">
+<div class="progress"><div class="bar" id="bar"></div></div>
 <div class="card">
-<div class="img-box" id="imgBox">
-<div class="badge" id="badge">#1</div>
-<img id="meme" alt="">
-<div class="timer-overlay" id="timerOverlay"><div class="timer-num" id="timerNum">3</div><div style="color:#fff;font-weight:600">GET READY...</div></div>
+<div class="imgBox">
+<div class="badge" id="badge">#1 / 15</div>
+<img id="pic" src="" alt="">
+<div class="timer" id="timer"><div class="timerNum" id="tNum">3</div><div style="background:#fff;color:#000;border:2px solid #000;border-radius:20px;padding:3px 10px;font-weight:800;font-size:11px;margin-top:6px">GET READY...</div></div>
 </div>
-<div class="controls">
-<button class="btn btn-laugh" onclick="laugh()">😂 I LAUGHED</button>
-<button class="btn btn-next" onclick="next(true)">NEXT 😐</button>
-</div>
-<div style="display:flex;justify-content:space-between;margin-top:10px;font-weight:700;font-size:14px"><span id="score">Score: 0</span><span id="left">3 lives</span></div>
+<div class="controls"><button class="btn btnLaugh" onclick="laugh()">😂 I LAUGHED</button><button class="btn btnNext" onclick="nextPic(true)">NEXT 😐</button></div>
 </div>
 </div>
-<div class="credits">✨ Developed by <strong>SPARK</strong> ✨<br><span style="font-size:11px">Keep a straight face if you can!</span></div>
-<div id="overlay"><div class="over-box"><div style="font-size:60px" id="oEmoji">💀</div><h2 id="oTitle">YOU LAUGHED!</h2><p id="oText"></p><button class="btn btn-next" style="width:100%;margin-top:16px" onclick="restart()">PLAY AGAIN 🔁</button><p style="margin-top:12px;font-size:11px">Developed by <b>SPARK</b></p></div></div>
+<div class="credits">✨ Developed by <b>SPARK</b> ✨<br>15 Memes Challenge</div>
+<div id="end"><div class="endBox"><div style="font-size:60px" id="eEmoji">💀</div><h2 style="font-family:Bangers;font-size:30px" id="eTitle">GAME OVER</h2><p id="eText"></p><button class="btn btnNext" style="width:100%;margin-top:12px;background:#FFE600" onclick="location.reload()">PLAY AGAIN 🔁</button><div style="margin-top:8px;font-size:11px">by <b>SPARK</b></div></div></div>
 <script>
-let memes=[],cur=0,lives=3,score=0,timerInterval=null,count=3,isCounting=false;
-function check(src){return new Promise(r=>{const im=new Image();im.onload=()=>r(src);im.onerror=()=>r(null);im.src=src;});}
-async function loadAll(){
-  let found=[];
-  for(let i=1;i<=100;i++){
-    let src = await check(`${i}.jpg`) || await check(`${i}.JPG`) || await check(`${i}.jpeg`) || await check(`${i}.png`) || await check(`${i}.webp`);
-    if(src) found.push({num:i,src:src});
+let cur=0,lives=3,score=0,timer=null,count=3,busy=false;
+let pics=[];
+// TRY ALL POSSIBLE PATHS FOR YOUR 15 PICS
+const bases=["","Janthar-Manthar/","images/","Images/","./"];
+const exts=[".jpg",".JPG",".jpeg",".png",".webp",".JPG.jpg"];
+
+async function findOne(num){
+  for(let b of bases){
+    for(let e of exts){
+      let url=`${b}${num}${e}`;
+      let ok=await new Promise(r=>{let im=new Image();im.onload=()=>r(url);im.onerror=()=>r(null);im.src=url;});
+      if(ok) return ok;
+    }
   }
-  found.sort((a,b)=>a.num-b.num);
-  memes=found.map(f=>f.src);
-  showWithTimer();
+  return null;
 }
-function showWithTimer(){
-  if(!memes.length) return;
-  document.getElementById('meme').src=memes[cur];
-  document.getElementById('badge').innerText=`#${cur+1}`;
-  document.getElementById('ptxt').innerText=`${cur+1}/${memes.length}`;
-  document.getElementById('bar').style.width=`${((cur+1)/memes.length)*100}%`;
-  document.getElementById('score').innerText=`Score: ${score} straight`;
+
+async function load15(){
+  let s=document.getElementById('status');
+  pics=[];
+  for(let i=1;i<=15;i++){
+    s.innerText=`Finding ${i}.jpg... Found ${pics.length}/15`;
+    let p=await findOne(i);
+    if(p){pics.push(p); console.log("found",p);} 
+  }
+  if(pics.length===0){
+    s.innerHTML=`❌ 0 pics found!<br>Check: 1.jpg must be in repo ROOT (same folder as index.html)<br>Not inside another folder`;
+  }else{
+    s.innerText=`✅ Found ${pics.length} pics! Tap START`;
+  }
+}
+
+function startGame(){
+  if(pics.length===0){alert('No pics found! Make sure 1.jpg to 15.jpg are uploaded in same folder as index.html'); return;}
+  document.getElementById('start').style.display='none';
+  show();
+}
+function show(){
+  document.getElementById('pic').src=pics[cur];
+  document.getElementById('badge').innerText=`#${cur+1} / ${pics.length}`;
+  document.getElementById('bar').style.width=`${(cur+1)/pics.length*100}%`;
   document.getElementById('lives').innerText='❤️'.repeat(lives)+` ${lives}`;
   startTimer();
 }
 function startTimer(){
-  if(isCounting) return; isCounting=true; count=3;
-  const overlay=document.getElementById('timerOverlay');
-  const numEl=document.getElementById('timerNum');
-  overlay.style.display='flex'; numEl.innerText=count;
-  numEl.style.animation='none'; numEl.offsetHeight; numEl.style.animation='pop 0.6s cubic-bezier(.34,1.56,.64,1) forwards';
+  if(busy) return; busy=true; count=3;
+  let timer=document.getElementById('timer');
+  let num=document.getElementById('tNum');
+  timer.style.display='flex';
+  num.innerText=count; num.style.animation='none'; num.offsetHeight; num.style.animation='pop .6s cubic-bezier(.34,1.56,.64,1)';
+  if(navigator.vibrate) navigator.vibrate(50);
   timerInterval=setInterval(()=>{
     count--;
     if(count>0){
-      numEl.innerText=count;
-      numEl.style.animation='none'; numEl.offsetHeight; numEl.style.animation='pop 0.6s cubic-bezier(.34,1.56,.64,1) forwards';
+      num.innerText=count;
+      num.style.animation='none'; num.offsetHeight; num.style.animation='pop .6s cubic-bezier(.34,1.56,.64,1)';
       if(navigator.vibrate) navigator.vibrate(60);
-    }else{clearInterval(timerInterval);overlay.style.display='none';isCounting=false;}
+    }else{clearInterval(timerInterval);timer.style.display='none';busy=false;}
   },900);
 }
-function next(manual=false){
-  if(isCounting && !manual) return;
-  if(timerInterval) clearInterval(timerInterval);
-  document.getElementById('timerOverlay').style.display='none'; isCounting=false;
-  if(cur < memes.length-1){cur++;score++;showWithTimer();}else{showWin();}
+let timerInterval;
+function nextPic(manual=false){
+  if(busy && !manual) return;
+  clearInterval(timerInterval); document.getElementById('timer').style.display='none'; busy=false;
+  if(cur < pics.length-1){cur++;score++;show();}else{endGame(true);}
 }
 function laugh(){
   lives--;
-  if(lives<=0){
-    document.getElementById('oEmoji').innerText='💀';
-    document.getElementById('oTitle').innerText='GAME OVER!';
-    document.getElementById('oText').innerText=`You survived ${score} memes! Developed by SPARK`;
-    document.getElementById('overlay').style.display='flex';
-  }else{next(true);}
+  if(lives<=0){endGame(false);}else{nextPic(true);}
 }
-function showWin(){
-  document.getElementById('oEmoji').innerText='🏆';
-  document.getElementById('oTitle').innerText='YOU ARE LEGEND!';
-  document.getElementById('oText').innerText=`You survived ALL ${memes.length} memes! Developed by SPARK`;
-  document.getElementById('overlay').style.display='flex';
+function endGame(win){
+  document.getElementById('end').style.display='flex';
+  document.getElementById('eEmoji').innerText=win?'🏆':'💀';
+  document.getElementById('eTitle').innerText=win?'LEGEND!':'GAME OVER';
+  document.getElementById('eText').innerText=win?`You survived all ${pics.length} memes! You are unbeatable! - SPARK`:`You laughed! Survived ${score}/${pics.length}. Try again! - SPARK`;
 }
-function restart(){cur=0;lives=3;score=0;document.getElementById('overlay').style.display='none';showWithTimer();}
-loadAll();
+load15();
 </script>
 </body>
 </html>
