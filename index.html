@@ -1,1 +1,119 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Try Not To Laugh Challenge 😂</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--y:#FFE45E;--p:#FF6B9D;--b:#4ECDC4;--bg:#FFF8E7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Fredoka',sans-serif;background:var(--bg);min-height:100vh;display:flex;flex-direction:column}
+nav{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;max-width:520px;width:100%;margin:0 auto}
+.logo{font-weight:800;font-size:24px;transform:rotate(-1.5deg);line-height:1}
+.logo span{color:var(--p);display:block;font-size:18px}
+.lives{background:#fff;border:3px solid #000;border-radius:30px;padding:6px 14px;box-shadow:3px 3px 0 #000;font-weight:700}
+.container{max-width:480px;width:100%;margin:0 auto;padding:0 20px;flex:1}
+.progress-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.progress{flex:1;height:16px;background:#fff;border:2.5px solid #000;border-radius:20px;overflow:hidden;box-shadow:2px 2px 0 #000}
+.bar{height:100%;background:linear-gradient(90deg,var(--y),var(--p));width:0%;transition:width 0.6s cubic-bezier(.34,1.56,.64,1)}
+.card{background:#fff;border:4px solid #000;border-radius:28px;padding:12px;box-shadow:8px 8px 0 #000}
+.img-box{border:3px solid #000;border-radius:18px;aspect-ratio:1/1;overflow:hidden;background:#fff;position:relative;display:flex;align-items:center;justify-content:center}
+.img-box img{width:100%;height:100%;object-fit:cover}
+.timer-overlay{position:absolute;inset:0;background:#111111e6;display:flex;align-items:center;justify-content:center;z-index:5;flex-direction:column}
+.timer-num{font-size:110px;font-weight:800;color:#FFE45E;-webkit-text-stroke:4px #000;text-shadow:6px 6px 0 #000;animation:pop 0.6s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes pop{0%{transform:scale(0.2) rotate(-15deg)}50%{transform:scale(1.25) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
+.badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--y);border:2.5px solid #000;border-radius:10px;padding:4px 10px;font-weight:800;font-size:13px}
+.controls{display:flex;gap:10px;margin-top:12px}
+.btn{flex:1;padding:13px;border:3px solid #000;border-radius:14px;font-weight:800;box-shadow:3px 3px 0 #000;cursor:pointer}
+.btn-laugh{background:#FF6B9D;color:#fff} .btn-next{background:#4ECDC4}
+.credits{text-align:center;padding:20px;font-size:13px;opacity:0.8}
+.credits strong{border:2px solid #000;background:#fff;padding:2px 8px;border-radius:20px;box-shadow:2px 2px 0 #000}
+#overlay{position:fixed;inset:0;background:#000000b3;display:none;align-items:center;justify-content:center;z-index:99;padding:20px}
+.over-box{background:#fff;border:4px solid #000;border-radius:24px;padding:26px;text-align:center;box-shadow:10px 10px 0 #000;max-width:340px;width:100%}
+</style>
+</head>
+<body>
+<nav><div class="logo">TRY NOT TO <span>LAUGH! 😂 CHALLENGE</span></div><div class="lives" id="lives">❤️❤️❤️ 3</div></nav>
+<div class="container">
+<div class="progress-wrap"><div class="progress"><div class="bar" id="bar"></div></div><div id="ptxt">1/15</div></div>
+<div class="card">
+<div class="img-box" id="imgBox">
+<div class="badge" id="badge">#1</div>
+<img id="meme" alt="">
+<div class="timer-overlay" id="timerOverlay"><div class="timer-num" id="timerNum">3</div><div style="color:#fff;font-weight:600">GET READY...</div></div>
+</div>
+<div class="controls">
+<button class="btn btn-laugh" onclick="laugh()">😂 I LAUGHED</button>
+<button class="btn btn-next" onclick="next(true)">NEXT 😐</button>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:10px;font-weight:700;font-size:14px"><span id="score">Score: 0</span><span id="left">3 lives</span></div>
+</div>
+</div>
+<div class="credits">✨ Developed by <strong>SPARK</strong> ✨<br><span style="font-size:11px">Keep a straight face if you can!</span></div>
+<div id="overlay"><div class="over-box"><div style="font-size:60px" id="oEmoji">💀</div><h2 id="oTitle">YOU LAUGHED!</h2><p id="oText"></p><button class="btn btn-next" style="width:100%;margin-top:16px" onclick="restart()">PLAY AGAIN 🔁</button><p style="margin-top:12px;font-size:11px">Developed by <b>SPARK</b></p></div></div>
+<script>
+let memes=[],cur=0,lives=3,score=0,timerInterval=null,count=3,isCounting=false;
+function check(src){return new Promise(r=>{const im=new Image();im.onload=()=>r(src);im.onerror=()=>r(null);im.src=src;});}
+async function loadAll(){
+  let found=[];
+  for(let i=1;i<=100;i++){
+    let src = await check(`${i}.jpg`) || await check(`${i}.JPG`) || await check(`${i}.jpeg`) || await check(`${i}.png`) || await check(`${i}.webp`);
+    if(src) found.push({num:i,src:src});
+  }
+  found.sort((a,b)=>a.num-b.num);
+  memes=found.map(f=>f.src);
+  showWithTimer();
+}
+function showWithTimer(){
+  if(!memes.length) return;
+  document.getElementById('meme').src=memes[cur];
+  document.getElementById('badge').innerText=`#${cur+1}`;
+  document.getElementById('ptxt').innerText=`${cur+1}/${memes.length}`;
+  document.getElementById('bar').style.width=`${((cur+1)/memes.length)*100}%`;
+  document.getElementById('score').innerText=`Score: ${score} straight`;
+  document.getElementById('lives').innerText='❤️'.repeat(lives)+` ${lives}`;
+  startTimer();
+}
+function startTimer(){
+  if(isCounting) return; isCounting=true; count=3;
+  const overlay=document.getElementById('timerOverlay');
+  const numEl=document.getElementById('timerNum');
+  overlay.style.display='flex'; numEl.innerText=count;
+  numEl.style.animation='none'; numEl.offsetHeight; numEl.style.animation='pop 0.6s cubic-bezier(.34,1.56,.64,1) forwards';
+  timerInterval=setInterval(()=>{
+    count--;
+    if(count>0){
+      numEl.innerText=count;
+      numEl.style.animation='none'; numEl.offsetHeight; numEl.style.animation='pop 0.6s cubic-bezier(.34,1.56,.64,1) forwards';
+      if(navigator.vibrate) navigator.vibrate(60);
+    }else{clearInterval(timerInterval);overlay.style.display='none';isCounting=false;}
+  },900);
+}
+function next(manual=false){
+  if(isCounting && !manual) return;
+  if(timerInterval) clearInterval(timerInterval);
+  document.getElementById('timerOverlay').style.display='none'; isCounting=false;
+  if(cur < memes.length-1){cur++;score++;showWithTimer();}else{showWin();}
+}
+function laugh(){
+  lives--;
+  if(lives<=0){
+    document.getElementById('oEmoji').innerText='💀';
+    document.getElementById('oTitle').innerText='GAME OVER!';
+    document.getElementById('oText').innerText=`You survived ${score} memes! Developed by SPARK`;
+    document.getElementById('overlay').style.display='flex';
+  }else{next(true);}
+}
+function showWin(){
+  document.getElementById('oEmoji').innerText='🏆';
+  document.getElementById('oTitle').innerText='YOU ARE LEGEND!';
+  document.getElementById('oText').innerText=`You survived ALL ${memes.length} memes! Developed by SPARK`;
+  document.getElementById('overlay').style.display='flex';
+}
+function restart(){cur=0;lives=3;score=0;document.getElementById('overlay').style.display='none';showWithTimer();}
+loadAll();
+</script>
+</body>
+</html>
